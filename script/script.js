@@ -3,7 +3,8 @@ window.addEventListener('DOMContentLoaded', function(){
     'use strict';
     
     // Timer
-    /*function countTimer(deadline){
+    /*
+    function countTimer(deadline){
         let timerHours = document.querySelector('#timer-hours'),
             timerMinutes = document.querySelector('#timer-minutes'),
             timerSeconds = document.querySelector('#timer-seconds');
@@ -43,7 +44,7 @@ window.addEventListener('DOMContentLoaded', function(){
         updateClock();
     }
     countTimer('01 july 2021');
-*/
+    */
     //menu
 
     const toggleMenu = ()=>{
@@ -191,4 +192,25 @@ window.addEventListener('DOMContentLoaded', function(){
         startSlide(3000);
     };
     slider();
+    //Command
+    const command = ()=>{
+        const commandDiv = document.querySelector('.command'),
+              commandItem = commandDiv.querySelectorAll('img');
+        commandItem.forEach((e)=>{
+            const imageSrcAttribute = e.getAttribute('src'),
+                  imageDataAttribute = e.getAttribute('data-img');
+            e.addEventListener('mouseenter', ()=>{
+                e.src = imageDataAttribute;
+            });
+            e.addEventListener('mouseleave', ()=>{
+                e.src = imageSrcAttribute;
+            });
+        });
+    };
+    command();
+    //Validate
+    const validateCalc = ()=>{
+        
+    };
+    validateCalc();
 });
