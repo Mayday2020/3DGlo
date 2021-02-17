@@ -250,30 +250,34 @@ window.addEventListener('DOMContentLoaded', function(){
             loadMessage = 'Загрузка...',
             successMessage = 'Спасибо! Мы скоро с Вами свяжемся!';
 
-        const form = document.getElementById('form1');
-
-        const statusMessage = document.createElement('div');
-        statusMessage.style.cssText = 'font-size: 2rem;';
+        //const form = document.getElementById('form1');
+        const forms = document.querySelectorAll('form');
+        console.log(forms);
         
-        form.addEventListener('submit', (event)=>{
-            event.preventDefault();
-            form.appendChild(statusMessage);
-            statusMessage.textContent = loadMessage;
-            const formData = new FormData(form);
-            let body = {};
-            for(let val of formData.entries()){
-                body[val[0]] = val[1];
-            }
-            postData(body, 
-                ()=>{
-                    statusMessage.textContent = successMessage;
-                }, 
-                (error)=>{
-                    statusMessage.textContent = errorMessage;
-                    console.error(error);
+        const statusMessage = document.createElement('div');
+        statusMessage.style.cssText = 'font-size: 2rem; color: #19b5fe;';
+        forms.forEach((e)=>{
+            e.addEventListener('submit', (event)=>{
+                event.preventDefault();
+                e.appendChild(statusMessage);
+                statusMessage.textContent = loadMessage;
+                const formData = new FormData(e);
+                let body = {};
+                for(let val of formData.entries()){
+                    body[val[0]] = val[1];
                 }
-            );
+                postData(body, 
+                    ()=>{
+                        statusMessage.textContent = successMessage;
+                    }, 
+                    (error)=>{
+                        statusMessage.textContent = errorMessage;
+                        console.error(error);
+                    }
+                );
+            });
         });
+        
         const postData = (body, outputData, errorData)=>{
             const request = new XMLHttpRequest();
             request.addEventListener('readystatechange', ()=>{
